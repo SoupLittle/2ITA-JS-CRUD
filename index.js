@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
             var newPages = prompt("Write a new number of pages:");
             if (newPages !== null) {
             if (newPages === '0' || (!isNaN(newPages) && parseInt(newPages) > 0)) {
-            book.pages = newPages === '0' ? book.pages : parseInt(newPages);
+            book.readCount = newPages === '0' ? book.readCount : parseInt(newPages);
             displayAllBooks();
             } else {
             alert("Please write a valid number.");
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // Search with page count
+    // Search with page number
     function searchBooksByPageCount(searchValue) {
         var filteredBooks = data.filter(book => book.readCount >= parseInt(searchValue));
         booksContainer.innerHTML = ''; 
@@ -130,18 +130,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Add a book button
 
-  var addButton = document.getElementById('add');
-addButton.addEventListener('click', function () {
+    var addButton = document.getElementById('add');
+    addButton.addEventListener('click', function () {
     var title = prompt("Write the title:");
     var summary = prompt("Write a summary:");
     var pages = parseInt(prompt("Write number of pages:"));
 
-    if (title && summary && !isNaN(pages) && pages > 0) {
+     if (title && summary && !isNaN(pages) && pages > 0) {
         var newBook = {
             id: data.length + 1,
             title: title,
             body: summary,
-            pages: pages, // Jeg får ikke denne til å funke
+            pages: pages, // Jeg får ikke denne til å funke, det står bare "undefined " på nettsiden, men vis jeg console.log-er det så viser den tallet
         };
         data.push(newBook);
         displayAllBooks();
