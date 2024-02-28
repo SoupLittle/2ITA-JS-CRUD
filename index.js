@@ -1,59 +1,151 @@
+var data = [
+    {
+        "id": 1,
+        "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "body": "Even bad code can function. But if code isn't clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code. But it doesn't have to be that way.",
+        "readCount": 100
+    },
+    {
+        "id": 2,
+        "title": "The Pragmatic Programmer: Your Journey to Mastery",
+        "body": "Widely considered one of the best practical guides to programming, Steve McConnell’s original CODE COMPLETE has been helping developers write better software for more than a decade.",
+        "readCount": 900
+    },
+    {
+        "id": 3,
+        "title": "JavaScript: The Good Parts",
+        "body": "Most programming languages contain good and bad parts, but JavaScript has more than its share of the bad, having been developed and released in a hurry before it could be refined.",
+        "readCount": 800
+    },
+    {
+        "id": 4,
+        "title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "body": "Design Patterns is a modern classic in the literature of object-oriented development, offering timeless and elegant solutions to common problems in software design.",
+        "readCount": 700
+    },
+    {
+        "id": 5,
+        "title": "Refactoring: Improving the Design of Existing Code",
+        "body": "As the application of object technology--particularly the Java programming language--has become commonplace, a new problem has emerged to confront the software development community. Significant numbers of poorly designed programs have been created by less-experienced developers.",
+        "readCount": 600
+    },
+    {
+        "id": 6,
+        "title": "Effective Java",
+        "body": "Are you looking for a deeper understanding of the Java™ programming language so that you can write code that is clearer, more correct, more robust, and more reusable?",
+        "readCount": 500
+    }
+];
+
+
 document.addEventListener("DOMContentLoaded", function () {
-    // Funksjon for å vise alle bøker på siden
+    var booksContainer = document.getElementById('books');
+
+    // Shows all books on page
     function displayAllBooks() {
-        const booksContainer = document.getElementById('books');
         booksContainer.innerHTML = ''; // Tilbakestill innholdet
         data.forEach(book => {
-            const bookElement = document.createElement('div');
-            bookElement.classList.add('book');
-            bookElement.innerHTML = `
-                <h2>${book.title}</h2>
-                <p>${book.body}</p>
-                <p>Antall ord: ${book.body.split(' ').length}</p>
-                <p>Lest antall: ${book.readCount}</p>
-            `;
+            var bookElement = createBookElement(book);
             booksContainer.appendChild(bookElement);
         });
     }
-
-    // Søkefunksjon
-    function searchBooksByWordCount(searchValue) {
-        const filteredBooks = data.filter(book => book.body.split(' ').length === parseInt(searchValue));
-        const booksContainer = document.getElementById('books');
-        booksContainer.innerHTML = ''; // Tilbakestill innholdet
-        filteredBooks.forEach(book => {
-            const bookElement = document.createElement('div');
-            bookElement.classList.add('book');
-            bookElement.innerHTML = `
-                <h2>${book.title}</h2>
-                <p>${book.body}</p>
-                <p>Antall ord: ${book.body.split(' ').length}</p>
-                <p>Lest antall: ${book.readCount}</p>
-            `;
-            booksContainer.appendChild(bookElement);
-        });
-    }
-
-    // Vis alle bøker når siden lastes inn
     displayAllBooks();
 
-    // Søkeknapp
-    const searchButton = document.getElementById('search');
+    // Create a book element
+    function createBookElement(book) {
+        var bookElement = document.createElement('div');
+        bookElement.classList.add('book');
+        bookElement.innerHTML = `
+            <h2>${book.title}</h2>
+            <p>${book.body}</p>
+            <p><i>Pages: ${book.readCount}</i></p><br>
+            <button class="update-title">Update title</button>
+            <button class="update-pages">Update Pages</button>
+            <button class="delete-book">Delete book</button>
+        `;
+        var updateTitleButton = bookElement.querySelector('.update-title');
+        var updatePagesButton = bookElement.querySelector('.update-pages');
+        var deleteButton = bookElement.querySelector('.delete-book');
+
+        // Title updater button
+        updateTitleButton.addEventListener('click', function () {
+            var newTitle = prompt("Skriv inn ny tittel:");
+            if (newTitle !== null) {
+                book.title = newTitle;
+                displayAllBooks();
+            }
+        });
+
+       // Page updater button
+        updatePagesButton.addEventListener('click', function () {
+            var newPages = prompt("Write a new number of pages:");
+            if (newPages !== null) {
+            if (newPages === '0' || (!isNaN(newPages) && parseInt(newPages) > 0)) {
+            book.pages = newPages === '0' ? book.pages : parseInt(newPages);
+            displayAllBooks();
+            } else {
+            alert("Please write a valid number.");
+        }
+    }
+});
+
+
+        // Delete book button
+        deleteButton.addEventListener('click', function () {
+            var confirmDelete = confirm("Are you sure you wanna delete this book?");
+            if (confirmDelete) {
+                data = data.filter(item => item.id !== book.id);
+                displayAllBooks();
+            }
+        });
+
+        return bookElement;
+    }
+
+    //TODO: Funksjon for å søke etter bøker basert på antall sider
+    function searchBooksByPageCount(searchValue) {
+        var filteredBooks = data.filter(book => book.pages >= parseInt(searchValue));
+        booksContainer.innerHTML = ''; 
+        filteredBooks.forEach(book => {
+            var bookElement = createBookElement(book);
+            booksContainer.appendChild(bookElement);
+        });
+    }
+
+
+
+
+    // Search button
+    var searchButton = document.getElementById('search');
     searchButton.addEventListener('click', function () {
-        const searchInput = document.getElementById('text').value;
-        searchBooksByWordCount(searchInput);
+        var searchInput = document.getElementById('text').value;
+        searchBooksByPageCount(searchInput);
     });
 
-    // Tilbakestillknapp
-    const resetButton = document.getElementById('reset');
+    // Reset button
+    var resetButton = document.getElementById('reset');
     resetButton.addEventListener('click', function () {
         displayAllBooks();
     });
 
-    // Legg til bokknapp - dette er et fiktivt eksempel, du må implementere logikken for å legge til bøker selv
-    const addButton = document.getElementById('add');
+    // Add a book button TODO: Fix pages
+    var addButton = document.getElementById('add');
     addButton.addEventListener('click', function () {
-        // Legg til logikk for å legge til bøker her
-        console.log('Legg til bok');
+        var title = prompt("Write the title:");
+        var summary = prompt("Write a summary:");
+        var pages = parseInt(prompt("Write numer of pages:"));
+        if (title && summary && pages) {
+            var newBook = {
+                id: data.length + 1,
+                title: title,
+                body: summary,
+                pages: pages,
+            
+            };
+            data.push(newBook);
+            displayAllBooks();
+        } else {
+            alert("Please add valid values.");
+        }
     });
 });
