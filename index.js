@@ -102,18 +102,16 @@ document.addEventListener("DOMContentLoaded", function () {
         return bookElement;
     }
 
-    
-    //TODO: Funksjon for å søke etter bøker basert på antall sider
+
+    // Search with page count
     function searchBooksByPageCount(searchValue) {
-        var filteredBooks = data.filter(book => book.pages >= parseInt(searchValue));
+        var filteredBooks = data.filter(book => book.readCount >= parseInt(searchValue));
         booksContainer.innerHTML = ''; 
         filteredBooks.forEach(book => {
             var bookElement = createBookElement(book);
             booksContainer.appendChild(bookElement);
         });
     }
-
-
 
 
     // Search button
@@ -129,24 +127,29 @@ document.addEventListener("DOMContentLoaded", function () {
         displayAllBooks();
     });
 
-    // Add a book button TODO: Fix pages
-    var addButton = document.getElementById('add');
-    addButton.addEventListener('click', function () {
-        var title = prompt("Write the title:");
-        var summary = prompt("Write a summary:");
-        var pages = parseInt(prompt("Write numer of pages:"));
-        if (title && summary && pages) {
-            var newBook = {
-                id: data.length + 1,
-                title: title,
-                body: summary,
-                pages: pages,
-            
-            };
-            data.push(newBook);
-            displayAllBooks();
-        } else {
-            alert("Please add valid values.");
-        }
-    });
+
+    // Add a book button
+
+  var addButton = document.getElementById('add');
+addButton.addEventListener('click', function () {
+    var title = prompt("Write the title:");
+    var summary = prompt("Write a summary:");
+    var pages = parseInt(prompt("Write number of pages:"));
+
+    if (title && summary && !isNaN(pages) && pages > 0) {
+        var newBook = {
+            id: data.length + 1,
+            title: title,
+            body: summary,
+            pages: pages, // Jeg får ikke denne til å funke
+        };
+        data.push(newBook);
+        displayAllBooks();
+    } else {
+        alert("Please add valid values.");
+    }
+});
+
+    
+
 });
