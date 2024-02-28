@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Title updater button
         updateTitleButton.addEventListener('click', function () {
-            var newTitle = prompt("Skriv inn ny tittel:");
+            var newTitle = prompt("Write a new title:");
             if (newTitle !== null) {
                 book.title = newTitle;
                 displayAllBooks();
@@ -149,7 +149,5 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("Please add valid values.");
     }
 });
-
-    
 
 });
