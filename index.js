@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Shows all books on page
     function displayAllBooks() {
-        booksContainer.innerHTML = ''; // Tilbakestill innholdet
+        booksContainer.innerHTML = ''; 
         data.forEach(book => {
             var bookElement = createBookElement(book);
             booksContainer.appendChild(bookElement);
@@ -102,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return bookElement;
     }
 
+    
     //TODO: Funksjon for å søke etter bøker basert på antall sider
     function searchBooksByPageCount(searchValue) {
         var filteredBooks = data.filter(book => book.pages >= parseInt(searchValue));
