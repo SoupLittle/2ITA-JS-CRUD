@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
             id: data.length + 1,
             title: title,
             body: summary,
-            pages: pages, // Jeg får ikke denne til å funke, det står bare "undefined " på nettsiden, men vis jeg console.log-er det så viser den tallet
+            readCount: pages,
         };
         data.push(newBook);
         displayAllBooks();
