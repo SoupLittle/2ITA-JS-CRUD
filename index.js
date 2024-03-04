@@ -71,11 +71,13 @@ document.addEventListener("DOMContentLoaded", function () {
         updateTitleButton.addEventListener('click', function () {
             var newTitle = prompt("Write a new title:");
             if (newTitle !== null) {
-                book.title = newTitle;
-                displayAllBooks();
+                book.title = newTitle.trim(); 
+            if (book.title) {
+                displayAllBooks()
+            } else { alert("The title cannot be empty.")}
             }
-        });
-
+        })
+            
        // Page updater button
         updatePagesButton.addEventListener('click', function () {
             var newPages = prompt("Write a new number of pages:");
@@ -132,6 +134,8 @@ function searchBooksByTitle(searchValue2) {
         searchBooksByPageCount(searchInput);
         searchBooksByTitle(searchInput);
     });
+    
+
 
     // Reset button
     var resetButton = document.getElementById('reset');
