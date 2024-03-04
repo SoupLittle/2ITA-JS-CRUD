@@ -103,15 +103,26 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // Search with page number
-    function searchBooksByPageCount(searchValue) {
-        var filteredBooks = data.filter(book => book.readCount >= parseInt(searchValue));
-        booksContainer.innerHTML = ''; 
-        filteredBooks.forEach(book => {
-            var bookElement = createBookElement(book);
-            booksContainer.appendChild(bookElement);
-        });
-    }
+  // Search with page number
+function searchBooksByPageCount(searchValue) {
+    var filteredBooks = data.filter(book => book.readCount >= parseInt(searchValue));
+    booksContainer.innerHTML = ''; 
+    filteredBooks.forEach(book => {
+        var bookElement = createBookElement(book);
+        booksContainer.appendChild(bookElement);
+    });
+}
+
+// Search by book title
+function searchBooksByTitle(searchValue2) {
+    var filteredBooks2 = data.filter(book => book.title.toLowerCase().includes(searchValue2.toLowerCase())); 
+    booksContainer.innerHTML = '';
+    filteredBooks2.forEach(book => {
+        var bookElement2 = createBookElement(book);
+        booksContainer.appendChild(bookElement2);
+    });
+}
+
 
 
     // Search button
@@ -119,6 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
     searchButton.addEventListener('click', function () {
         var searchInput = document.getElementById('text').value;
         searchBooksByPageCount(searchInput);
+        searchBooksByTitle(searchInput);
     });
 
     // Reset button
