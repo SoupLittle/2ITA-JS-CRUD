@@ -60,12 +60,15 @@ document.addEventListener("DOMContentLoaded", function () {
             <p>${book.body}</p>
             <p><i>Pages: ${book.readCount}</i></p><br>
             <button class="update-title">Update title</button>
+            <button class="update-body">Update Body</button>
             <button class="update-pages">Update Pages</button>
             <button class="delete-book">Delete book</button>
         `;
         var updateTitleButton = bookElement.querySelector('.update-title');
+        var updateBodyButton = bookElement.querySelector('.update-body') ;
         var updatePagesButton = bookElement.querySelector('.update-pages');
         var deleteButton = bookElement.querySelector('.delete-book');
+        
 
         // Title updater button
         updateTitleButton.addEventListener('click', function () {
@@ -90,6 +93,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 });
+
+        // Body updater button
+        updateBodyButton.addEventListener('click', function () {
+           var bodyText = prompt("Write the new text for this book:");
+           book.body  = bodyText;
+           displayAllBooks();
+        });
 
 
         // Delete book button

@@ -96,4 +96,18 @@ button:hover{
     font-style: normal;
 }
 
+.book .delete-book {
+    margin-right: 5px;
+    background-color: #ff5f62e7;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.book .delete-book:hover {
+    background-color: #ff3c35;
+}
+
 
